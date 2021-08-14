@@ -1,0 +1,15 @@
+{
+    "name": "quote-server",
+    "description": "Serve a random quote every refresh",
+    "version": "1.0.0",
+    "author": "Henry Fiantaca <hfiantaca@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "random-quotes": "^1.3.0"
+    },
+    "devDependencies": {}
+}
