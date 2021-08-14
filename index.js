@@ -1,22 +1,14 @@
-const http = require("http");
-const fs = require('fs').promises;
-const randomQuotes = require('random-quotes');
+import http from 'node:http';
+import fs from 'node:fs/promises';
+import { replacer, randomQuote } from "./lib.js";
 
 const port = 8000;
-const indexFile= "/index.html";
+const indexFile = "./index.html";
 
 let index_html;
 
-// https://stackoverflow.com/questions/34725097/replace-string-value-with-javascript-object#34727892
-function replacer(template, obj) {
-  var keys = Object.keys(obj);
-  var func = Function(...keys, "return `" + template + "`;");
-
-  return func(...keys.map(k => obj[k]));
-}
-
 const requestListener = function (req, res) {
-	content = replacer(index_html, randomQuotes.default());
+	var content = replacer(index_html, randomQuote());
 	res.setHeader("Content-Type", "text/html");
 	res.writeHead(200);
 	res.end(content);
@@ -24,7 +16,7 @@ const requestListener = function (req, res) {
 
 const server = http.createServer(requestListener);
 
-fs.readFile(__dirname + indexFile)
+fs.readFile(indexFile)
 	.then(contents => {
 		index_html = contents;
 		server.listen(port);

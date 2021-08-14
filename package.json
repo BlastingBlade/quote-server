@@ -5,11 +5,12 @@
     "author": "Henry Fiantaca <hfiantaca@gmail.com>",
     "license": "MIT",
     "private": true,
+    "type": "module",
     "scripts": {
         "start": "node index.js"
     },
     "dependencies": {
-        "random-quotes": "^1.3.0"
+        "unique-random-array": "^3.0.0"
     },
     "devDependencies": {}
 }
