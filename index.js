@@ -1,11 +1,19 @@
 import http from 'node:http';
-import fs from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { replacer, randomQuote } from "./lib.js";
 
 const port = 8000;
 const indexFile = "./index.html";
 
 let index_html;
+let index_html_promise = readFile(indexFile)
+	.then(contents => {
+		index_html = contents;
+	})
+	.catch(err => {
+		console.error(`Could not read ${indexFile} file: ${err}`);
+		process.exit(1);
+	});
 
 const requestListener = function (req, res) {
 	var content = replacer(index_html, randomQuote());
@@ -16,12 +24,5 @@ const requestListener = function (req, res) {
 
 const server = http.createServer(requestListener);
 
-fs.readFile(indexFile)
-	.then(contents => {
-		index_html = contents;
-		server.listen(port);
-	})
-	.catch(err => {
-		console.error(`Could not read ${indexFile} file: ${err}`);
-		process.exit(1);
-	});
+await index_html_promise;
+server.listen(port);

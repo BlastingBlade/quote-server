@@ -1,10 +1,10 @@
 import uniqueRandomArray from 'unique-random-array';
-import fs from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 
 const quotesFile = './quotes.json';
 
 let quotes;
-await fs.readFile(quotesFile)
+let quotes_promise = readFile(quotesFile)
     .then(contents => {
         quotes = JSON.parse(contents);
     })
@@ -21,7 +21,7 @@ function replacer(template, obj) {
   return func(...keys.map(k => obj[k]));
 }
 
-// Stolen from random-quotes
+await quotes_promise;
 const getRandomQuote = uniqueRandomArray(quotes);
 function randomQuote() {
     return getRandomQuote();
