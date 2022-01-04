@@ -1,9 +1,13 @@
+#!/usr/bin/env node
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { replacer, randomQuote } from "./lib.js";
 
-const port = 8000;
+let port = 8000;
 const indexFile = "./index.html";
+
+if (parseInt(process.argv[2]))
+	port = parseInt(process.argv[2]);
 
 let index_html;
 let index_html_promise = readFile(indexFile)
