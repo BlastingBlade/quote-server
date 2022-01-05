@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path'
 import { replacer, randomQuote } from "./lib.js";
 
-let port = 8000;
-const indexFile = "./index.html";
+// slice(7) is a hack to remove "file://" which breaks the import
+const indexFile = resolve(dirname(import.meta.url.slice(7)), "./index.html");
+
+var port = 8000;
 
 if (parseInt(process.argv[2]))
 	port = parseInt(process.argv[2]);

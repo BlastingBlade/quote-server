@@ -1,7 +1,9 @@
 import uniqueRandomArray from 'unique-random-array';
 import { readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path'
 
-const quotesFile = './quotes.json';
+// slice(7) is a hack to remove "file://" which breaks the import
+const quotesFile = resolve(dirname(import.meta.url.slice(7)), "./quotes.json");
 
 let quotes;
 let quotes_promise = readFile(quotesFile)
